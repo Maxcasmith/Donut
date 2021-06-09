@@ -1,0 +1,15 @@
+// import { ExampleRequest } from '../Requests/ExampleRequest.js';
+// import { ValidatorService } from '../Services/ValidatorService.js'
+
+// export async function ExampleFactory(bodyOrParams)
+// {
+//     const request = new ExampleRequest();
+
+//     const x = bodyOrParams.x;
+
+//     await ValidatorService.validate(x, 'min:1|max:61');
+
+//     request.setValue(x);
+
+//     return request;
+// }
