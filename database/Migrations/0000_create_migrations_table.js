@@ -1,4 +1,4 @@
-import { Query } from "../Entities/Query.js";
+import { Query } from "../Query.js";
 
 export class create_migrations_table
 {

@@ -1,4 +1,4 @@
-import { Query } from "./Query.js";
+import { Query } from "../../database/Query.js";
 
 export class Entity
 {

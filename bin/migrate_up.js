@@ -1,5 +1,5 @@
-import { Query } from "../server/Entities/Query.js";
-import { migrations } from "../server/Migrations";
+import { Query } from "../database/Query.js";
+import { migrations } from "../database/Migrations";
 
 (async () => 
 {
