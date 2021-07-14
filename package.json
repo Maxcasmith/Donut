@@ -6,7 +6,8 @@
     "author": "Darren and Max Smith",
     "license": "ISC",
     "scripts": {
-        "serve": "nodemon build || node build"
+        "serve": "nodemon build || node build",
+        "tscw": "tsc --watch"
     },
     "dependencies": {
         "@types/node": "^16.3.2",
