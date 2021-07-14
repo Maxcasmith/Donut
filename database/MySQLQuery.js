@@ -1,17 +1,7 @@
-import mysql from "mysql";
-require('dotenv').config();
+const connection = require('./config.js');
 
-const connection = mysql.createPool({
-    host     : process.env.DB_HOST,
-    port     : process.env.DB_PORT,
-    user     : process.env.DB_USER,
-    password : process.env.DB_PASS,
-    database : process.env.DB_DATABASE
-});
-
-export class Query 
+export class MySQLQuery 
 {
-
     constructor(rawQueryString = null) 
     {
         this.rawQueryString = rawQueryString;
@@ -27,6 +17,18 @@ export class Query
     where(column, operator = '=', value)
     {
         this.queryLoader.push({command: "WHERE", column, operator, value});
+        return this;
+    }
+
+    orWhere(column, operator = '=', value)
+    {
+        this.queryLoader.push({command: "ORWHERE", column, operator, value});
+        return this;
+    }
+
+    leftJoin(table, thisTableColumn, masterTableColumn)
+    {
+        this.queryLoader.push({command: "LEFTJOIN", table, thisTableColumn, masterTableColumn});
         return this;
     }
 
@@ -104,8 +106,14 @@ export class Query
         for (let step of this.queryLoader) {
             switch (step['command']) {
                 case "WHERE":
-                    if (!this.query.includes('WHERE')) this.query += ` WHERE ${step['column']} ${step['operator']} ${step['value']}`
-                    else this.query += ` AND ${step['column']} ${step['operator']} ${step['value']}`
+                    if (!this.query.includes('WHERE')) this.query += ` WHERE ${step['column']} ${step['operator']} '${step['value']}'`;
+                    else this.query += ` AND ${step['column']} ${step['operator']} '${step['value']}'`;
+                    break;
+                case "ORWHERE":
+                    this.query += `OR ${step['column']} ${step['operator']} '${step['value']}'`;
+                    break;
+                case "LEFTJOIN":
+                    this.query += `LEFT JOIN ${step['table']} ON (${step['table']}.${step['thisTableColumn']} = ${this.tableName}.${step['masterTableColumn']})`;
                     break;
             }
         }

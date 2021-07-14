@@ -1,10 +1,9 @@
-import { rules } from "../../configs/ValidationRules.js";
+import { rules } from "../../configs/ValidationRules";
 
 export class ValidatorService 
 {
-    static validate(field, validationString)
+    static validate(field:any, validationString:string): Promise<boolean>
     {
-
         return new Promise(async (resolve) => {
             const validationLoader = validationString.split("|");
             for (let validationRule of validationLoader) {
@@ -15,13 +14,9 @@ export class ValidatorService
                     response = rules[validationRule].getValidationFunc()(field, value);
                 }
                 else response = rules[validationRule].getValidationFunc()(field);
-                if (response != true) handle(new Error(rules[validationRule].getMessage()));
+                if (response != true) throw new Error(rules[validationRule].getMessage());
             }
             resolve(true);
         });
     }
 }
-
-// This is an example of how you would use the validator
-// ValidatorService.validate("example@test.com", "max:3|min:2|email")
-//     .then(res => console.log(res));

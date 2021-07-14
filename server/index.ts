@@ -1,6 +1,6 @@
-import express from 'express';
-import cors from 'cors';
-import bodyParser from 'body-parser';
+import * as express from 'express';
+import * as cors from 'cors';
+import * as bodyParser from 'body-parser';
 
 const app = express();
 const jsonParser = bodyParser.json();

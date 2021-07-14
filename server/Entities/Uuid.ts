@@ -1,13 +1,15 @@
 export class Uuid
 {
-    constructor(uuid)
+    private uuid:string;
+
+    constructor(newUuidCharacterString:string|null)
     {
-        this.uuid = uuid || this.generate();
+        this.uuid = (newUuidCharacterString != null) ? newUuidCharacterString : this.generate();
     }
 
-    generate()
+    generate(): string
     {
-        const dt = new Date().getTime();
+        let dt = new Date().getTime();
         const uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
             const r = (dt + Math.random()*16)%16 | 0;
             dt = Math.floor(dt/16);
@@ -16,8 +18,8 @@ export class Uuid
         return uuid;
     }
 
-    getId()
+    getId(): string
     {
-        return this.id;
+        return this.uuid;
     }
 }

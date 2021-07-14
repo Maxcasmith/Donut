@@ -6,14 +6,15 @@
     "author": "Darren and Max Smith",
     "license": "ISC",
     "scripts": {
-        "serve" : "nodemon -r esm server/index.js || node -r esm server/index.js"
+        "serve": "nodemon build || node build"
     },
     "dependencies": {
+        "@types/node": "^16.3.2",
         "body-parser": "^1.19.0",
         "cors": "^2.8.5",
         "dotenv": "^10.0.0",
-        "esm": "^3.2.25",
         "express": "^4.17.1",
-        "mysql": "^2.18.1"
+        "mysql": "^2.18.1",
+        "save-dev": "^0.0.1-security"
     }
 }

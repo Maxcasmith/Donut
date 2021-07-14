@@ -1,16 +1,19 @@
 export class ValidationRule 
 {
-    constructor (validationFunc, message) {
+    private validationFunc:Function;
+    private message:string;
+
+    constructor (validationFunc:Function, message:string) {
         this.validationFunc = validationFunc;
         this.message = message;
     }
 
-    getValidationFunc()
+    getValidationFunc(): Function
     {
         return this.validationFunc;
     }
 
-    getMessage()
+    getMessage(): string
     {
         return this.message;
     }
