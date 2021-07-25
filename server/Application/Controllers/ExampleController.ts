@@ -1,26 +1,23 @@
 import { ExampleFactory } from "../Factories/ExampleFactory";
-import { ExecutionBus } from "../Services/ExecutionBus";
-
+import { bus } from "../Services/ExecutionBus";
 export class ExampleController
 {
-    private bus:ExecutionBus;
+    factory:ExampleFactory;
 
-    constructor(bus:ExecutionBus) 
+    constructor()
     {
-        this.bus = bus;
+        this.factory = new ExampleFactory();
     }
 
-    async hello(req, res)
+    async hello(req)
     {
-        res.send("Hello World");
+        return "Hello World";
     }
 
-    async example(req, res)
+    async example(req)
     {
-        const command = await (new ExampleFactory())
-            .hydrateCommand(req.body);
-            
-        const data = await this.bus.execute(command);
-        res.send(data);
+        const command = await this.factory.hydrateCommand(req.body);
+        const data = await bus.execute(command);
+        return data;
     }
 }

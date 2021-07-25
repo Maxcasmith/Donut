@@ -8,6 +8,6 @@ const jsonParser = bodyParser.json();
 app.use(cors());
 app.use(express.static('../client'));
 
-require('./Application/routes.js')(app, jsonParser);
+require('./Application/routing.js')(app, jsonParser);
 
 app.listen(8000);

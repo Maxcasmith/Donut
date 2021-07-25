@@ -3,12 +3,19 @@ import { middlewareList } from '../Middleware/MiddlewareList';
 
 export class ExecutionBus
 {
-    async execute(command:any): Promise<any>
+    async execute(...commands:any): Promise<any>
     {
-        await this.runMiddleware(command);
-        const commandName = command.constructor.name;
-        const handler = this.getHandler(commandName);
-        return await handler.handle(command);
+        let collectedData = {};
+
+        for (let command of commands) {
+            await this.runMiddleware(command);
+            const commandName = command.constructor.name;
+            const handler = this.getHandler(commandName);
+            collectedData[commandName] = await handler.handle(command);
+        }
+
+        if (Object.keys(collectedData).length > 1) return collectedData;
+        else return collectedData[commands[0].constructor.name];
     }
 
     getHandler(commandName:string): CommandHandler
@@ -25,3 +32,4 @@ export class ExecutionBus
         }
     }
 }
+export const bus = new ExecutionBus();
