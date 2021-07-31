@@ -1,4 +1,4 @@
-import { ExampleCommand } from "../../Boundary/Commands/ExampleCommand";
+import { ExampleCommand } from "../../Boundary/Commands/Example/ExampleCommand";
 
 export class ExampleFactory
 {

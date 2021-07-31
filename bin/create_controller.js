@@ -4,15 +4,13 @@ const args = process.argv.slice(2);
 
 const name = args[0];
 
-const controllerTemplate = `import { ExecutionBus } from "../Services/ExecutionBus";
+const controllerTemplate = `import { bus } from "../Services/ExecutionBus";
 
 export class ${name}
 {
-    private bus:ExecutionBus;
-
-    constructor(bus:ExecutionBus) 
+    constructor() 
     {
-        this.bus = bus;
+
     }
 }
 `;
