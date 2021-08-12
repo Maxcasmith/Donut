@@ -5,11 +5,13 @@ const args = process.argv.slice(2);
 const name = args[0];
 const dir = args[1];
 
-const commandTemplate = `export class ${name}Command
+const commandTemplate = `import { Command } from "../Command";
+
+export class ${name}Command extends Command
 {
     constructor()
     {
-
+        super('${dir}');
     }
 }
 `;
@@ -48,7 +50,9 @@ function toCammelCase(text)
         writer = fs.createWriteStream(path.join(__dirname, `../server/Boundary/Commands/${fileDir}/${fileName}Command.ts`), {
             flags: 'a'
         });
-        writer.write(`export class ${fileName}Command
+        writer.write(`import { Command } from "../Command";
+
+export class ${fileName}Command extends Command
 {
     `);
 
@@ -70,6 +74,7 @@ function toCammelCase(text)
 
         writer.write(`)
     {
+        super('${fileDir}');
         `);
         
         i = 0;

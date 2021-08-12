@@ -6,10 +6,10 @@ export class ExampleCommandHandler implements CommandHandler
 {
     async handle(command:ExampleCommand): Promise<any>
     {
-        const exampleEntity = new Example({
+        const example = new Example({
             value: command.getValue()
         });
 
-        return exampleEntity;
+        return example;
     }
 }
