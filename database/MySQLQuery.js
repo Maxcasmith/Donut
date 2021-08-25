@@ -1,6 +1,5 @@
 const connection = require('./config.js');
-
-export class MySQLQuery 
+class MySQLQuery 
 {
     constructor(rawQueryString = null) 
     {
@@ -26,9 +25,15 @@ export class MySQLQuery
         return this;
     }
 
-    leftJoin(table, thisTableColumn, masterTableColumn)
+    join(table, columnOne, columnTwo)
     {
-        this.queryLoader.push({command: "LEFTJOIN", table, thisTableColumn, masterTableColumn});
+        this.queryLoader.push({command: "JOIN", table, columnOne, columnTwo});
+        return this;
+    }
+
+    limit(limit)
+    {
+        this.queryLoader.push({command: "LIMIT", limit});
         return this;
     }
 
@@ -39,6 +44,24 @@ export class MySQLQuery
         return this.runQuery()
                 .then(res => { return res })
                 .catch(err => { return err });        
+    }
+
+    async getOneToMany(id, field)
+    {
+        this.query = `SELECT * FROM ${this.tableName} WHERE ${field} = ${id}`
+        this.buildQuery();
+        return this.runQuery()
+            .then(res => { return res })
+            .catch(err => { return err }); 
+    }
+
+
+    async delete(id)
+    {
+        this.query = `DELETE FROM ${this.tableName} WHERE ${this.tableName}_id = ${id}`;
+        return this.runQuery()
+                .then(res => { return res })
+                .catch(err => { return err });
     }
 
     /**
@@ -110,10 +133,13 @@ export class MySQLQuery
                     else this.query += ` AND ${step['column']} ${step['operator']} '${step['value']}'`;
                     break;
                 case "ORWHERE":
-                    this.query += `OR ${step['column']} ${step['operator']} '${step['value']}'`;
+                    this.query += ` OR ${step['column']} ${step['operator']} '${step['value']}'`;
                     break;
-                case "LEFTJOIN":
-                    this.query += `LEFT JOIN ${step['table']} ON (${step['table']}.${step['thisTableColumn']} = ${this.tableName}.${step['masterTableColumn']})`;
+                case "JOIN":
+                    this.query += ` JOIN ${step['table']} ON ${step['columnOne']} = ${step['columnTwo']}`;
+                    break;
+                case "LIMIT":
+                    this.query += ` LIMIT ${step['limit']}`;
                     break;
             }
         }
@@ -121,6 +147,7 @@ export class MySQLQuery
     }
 
     runQuery() {
+        console.log(this.query)
         return new Promise((resolve, reject) => {            
             connection.query(this.query, (err, res) => {
                 if (err) reject(err);
@@ -129,4 +156,13 @@ export class MySQLQuery
         });
     }
 
+    async toSql()
+    {
+        this.query = `SELECT * FROM ${this.tableName}`;
+        this.buildQuery();
+        return this.query;
+    }
+
 }
+
+exports.MySQLQuery = MySQLQuery;
