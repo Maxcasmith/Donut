@@ -4,11 +4,11 @@ controllers:
   #     - example
 
 commands:
-  GetTestCommand:
-    dir: Test
-    parameters:
-      - "test:string"
-      - "value:string"
+  # GetTestCommand:
+  #   dir: Test
+  #   parameters:
+  #     - "test:string"
+  #     - "value:string"
 
 entities:
   # Example:
