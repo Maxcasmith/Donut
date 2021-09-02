@@ -1,14 +1,10 @@
-import { Query } from "../Query.js";
+const { MySQLQuery } = require("../MySQLQuery.js");
 
-export class create_migrations_table
+exports.create_migrations_table = class create_migrations_table
 {
-    constructor() {
-        super('migrations');
-    }
-
     static async up()
     {
-        await (new Query(`CREATE TABLE migrations (
+        await (new MySQLQuery(`CREATE TABLE migrations (
             migration_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
             migration_name VARCHAR(100) NOT NULL UNIQUE
         )`)).execRawQueryString();
@@ -16,6 +12,6 @@ export class create_migrations_table
 
     static async down()
     {
-        await (new Query("DROP TABLE migrations")).execRawQueryString();
+        await (new MySQLQuery("DROP TABLE migrations")).execRawQueryString();
     }
 }

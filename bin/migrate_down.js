@@ -1,11 +1,11 @@
-import { Query } from "../database/Query.js";
-import { migrations } from "../database/Migrations";
+const {MySQLQuery} = require("../database/MySQLQuery.js");
+const {migrations} = require("../database/Migrations");
 
 (async () => 
 {
     for (let m = (migrations.length - 1); m >= 0; m--) {
 
-        const results = await (new Query(`SELECT * FROM migrations WHERE migration_name = "${migrations[m].name}"`)).execRawQueryString();
+        const results = await (new MySQLQuery(`SELECT * FROM migrations WHERE migration_name = "${migrations[m].name}"`)).execRawQueryString();
         const willRollback = (results.length > 0) || false;
 
         if (willRollback) {

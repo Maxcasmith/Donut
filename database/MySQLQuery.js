@@ -71,14 +71,14 @@ class MySQLQuery
     {
         this.query = `INSERT into ${this.tableName} (`;
         for (let d in data) {
-            if (d != 'table' && data[d] != null)
+            if (d != 'table' && data[d] != null && d.startsWith(this.tableName))
                 this.query += `${d}, `;
         }
         this.query = this.query.slice(0, -2);
         this.query += ')';
         this.query += ` VALUES (`;
         for (let d in data) {
-            if (d != 'table' && data[d] != null) {
+            if (d != 'table' && data[d] != null && d.startsWith(this.tableName)) {
                 if (typeof data[d] === 'string') this.query += `'${data[d]}', `;
                 else this.query += `${data[d]}, `;
             }
@@ -94,7 +94,7 @@ class MySQLQuery
     {
         this.query = `UPDATE ${this.tableName} SET `;
         for (let d in data) {
-            if (d != 'table' && (!d.includes('_id')) && data[d] != null) {
+            if (d != 'table' && (!d.includes('_id')) && data[d] != null && d.startsWith(this.tableName)) {
                 if (typeof data[d] === 'string') this.query += `${d}='${data[d]}', `;
                 else this.query += `${d}=${data[d]}, `;
             }

@@ -1,16 +1,16 @@
-import { Query } from "../database/Query.js";
-import { migrations } from "../database/Migrations";
+const { MySQLQuery } = require("../database/MySQLQuery.js");
+const { migrations } = require("../database/Migrations");
 
 (async () => 
 {
     for (let migration of migrations) {
         let willMigrate = true;
         
-        const tables = await (new Query('SHOW TABLES LIKE "migrations"')).execRawQueryString();
+        const tables = await (new MySQLQuery('SHOW TABLES LIKE "migrations"')).execRawQueryString();
         const migrationsTableExists = (tables.length > 0);
 
         if (migrationsTableExists) {
-            const results = await (new Query(`SELECT * FROM migrations WHERE migration_name = "${migration.name}"`)).execRawQueryString();
+            const results = await (new MySQLQuery(`SELECT * FROM migrations WHERE migration_name = "${migration.name}"`)).execRawQueryString();
             willMigrate = (results.length == 0);
         }
 
@@ -18,7 +18,7 @@ import { migrations } from "../database/Migrations";
             console.log("\x1b[33m", `migrating ${migration.name}`);
             await migration.up();
             console.log("\x1b[32m", `migration ${migration.name} completed successfully`);
-            await (new Query(`INSERT into migrations (migration_name) VALUES ('${migration.name}')`)).execRawQueryString();
+            await (new MySQLQuery(`INSERT into migrations (migration_name) VALUES ('${migration.name}')`)).execRawQueryString();
             if (migration.seed) {
                 console.log("\x1b[33m", `seeding ${migration.name}`);
                 await migration.seed();
