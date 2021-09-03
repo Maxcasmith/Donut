@@ -7,8 +7,7 @@ export class ExecutionBus
 
         for (let command of commands) {
             await this.runMiddleware(command);
-            const commandName = command.constructor.name;
-            collectedData[commandName] = await command.run();
+            collectedData[command.constructor.name] = await command.run();
         }
 
         if (Object.keys(collectedData).length > 1) return collectedData;
