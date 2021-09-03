@@ -10,7 +10,8 @@ const {migrations} = require("../database/Migrations");
 
         if (willRollback) {
             console.log("\x1b[33m", `rolling back ${migrations[m].name}`);
-            migrations[m].down();
+            const data = await migrations[m].down();
+            if (data['errno']) throw Error(data['message']);
             console.log("\x1b[32m", `rolled back ${migrations[m].name}`);
         }
     }

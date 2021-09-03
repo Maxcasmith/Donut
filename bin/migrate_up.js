@@ -16,7 +16,8 @@ const { migrations } = require("../database/Migrations");
 
         if (willMigrate) {
             console.log("\x1b[33m", `migrating ${migration.name}`);
-            await migration.up();
+            const data = await migration.up();
+            if (data['errno']) throw Error(data['message']);
             console.log("\x1b[32m", `migration ${migration.name} completed successfully`);
             await (new MySQLQuery(`INSERT into migrations (migration_name) VALUES ('${migration.name}')`)).execRawQueryString();
             if (migration.seed) {
