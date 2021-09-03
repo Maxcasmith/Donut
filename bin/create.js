@@ -101,7 +101,17 @@ class Template
     
 }
 
-function capitalizeFirstLetter(string) {
+function toCamel(string)
+{
+    return string.replace(/([-_][a-z])/ig, (s) => {
+        return s.toUpperCase()
+            .replace('-', '')
+            .replace('_', '');
+    });
+}
+
+function capitalizeFirstLetter(string) 
+{
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
@@ -119,8 +129,8 @@ function capitalizeFirstLetter(string) {
                 const type = value.split(':')[1];
                 params += `private ${variable}: ${type};\n    `;
                 constructorValue += `this.${variable} = data['${variable}'];\n        `;
-                gettersSetters += `get${capitalizeFirstLetter(variable)}(): ${type} \n    {\n        return this.${variable};\n    }\n\n    `;
-                gettersSetters += `set${capitalizeFirstLetter(variable)}(${value}): this \n    {\n        this.${variable} = ${variable};\n        return this;\n    }\n\n    `;
+                gettersSetters += `get${capitalizeFirstLetter(toCamel(variable))}(): ${type} \n    {\n        return this.${variable};\n    }\n\n    `;
+                gettersSetters += `set${capitalizeFirstLetter(toCamel(variable))}(${value}): this \n    {\n        this.${variable} = ${variable};\n        return this;\n    }\n\n    `;
             }
             t.replaceBookmark("Title", e);
             t.replaceBookmark("Table", entity.table || e.toLowerCase());
@@ -148,8 +158,8 @@ function capitalizeFirstLetter(string) {
                 params += `private ${variable}: ${type};\n    `;
                 constructorParams += `${p}, `;
                 constructorValues += `this.${variable} = ${variable};\n        `;
-                gettersSetters += `get${capitalizeFirstLetter(variable)}(): ${type} \n    {\n        return this.${variable};\n    }\n\n    `;
-                gettersSetters += `set${capitalizeFirstLetter(variable)}(${p}): this \n    {\n        this.${variable} = ${variable};\n        return this;\n    }\n\n    `;
+                gettersSetters += `get${capitalizeFirstLetter(toCamel(variable))}(): ${type} \n    {\n        return this.${variable};\n    }\n\n    `;
+                gettersSetters += `set${capitalizeFirstLetter(toCamel(variable))}(${p}): this \n    {\n        this.${variable} = ${variable};\n        return this;\n    }\n\n    `;
             }
             constructorParams = constructorParams.slice(0, -2);
             t.replaceBookmark("Title", c);
