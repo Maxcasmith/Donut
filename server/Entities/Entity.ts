@@ -12,13 +12,14 @@ export class Entity
     async create(): Promise<any>
     {
         const data = await (new Query()).setTableName(this.table).insert(this);
-        return data;
+        this[`${this.table}_id`] = data.insertId;
+        return this;
     }
 
     async update(): Promise<any>
     {
         const data = await (new Query()).setTableName(this.table).update(this);
-        return data;
+        return this;
     }
 
     async delete(): Promise<any>
