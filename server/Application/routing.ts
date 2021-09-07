@@ -30,7 +30,13 @@ async function runEndpoint(req, res)
         const [controller, func] = route.call.split('@');
         const ref = require(`../Application/Controllers/${controller}.js`);
         const container = new ref[controller]();
-        res.send(await container[func](req))
+
+        try {
+            res.send(await container[func](req));
+        } catch(err) {
+            res.send({SUCCESS: false, MESSAGE: err.message});
+        }
+        
     } else res.sendFile(path.join(__dirname, '../../client/index.html'));
 }
 
