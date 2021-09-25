@@ -9,15 +9,12 @@ export class ExampleController
         this.factory = new ExampleFactory();
     }
 
-    async hello(req:any): Promise<string>
+    async hello(req:any): Promise<any>
     {
-        return "Hello World";
-    }
-
-    async example(req:any): Promise<any>
-    {
+        const message = "HELLO WORLD";
+        
         const commands = await this.factory.hydrateCommand(req.body);
-        const data = await bus.execute({ commands, data: { message: "HELLO WORLD" } });
+        const data = await bus.execute({ commands, data: { message }, lanes: 'test' });
         return data;
     }
 }

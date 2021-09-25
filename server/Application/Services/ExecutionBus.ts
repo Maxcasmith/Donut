@@ -5,14 +5,21 @@ export class ExecutionBus
 {
     async execute(options:ExecutionBusOptions): Promise<any>
     {
-        let commands:any = (options.commands.constructor.name == "Array") 
+        const commands:any = (options.commands.constructor.name == "Array") 
             ? options.commands
             : [ options.commands ];
+
+        let lanes:any = null;
+        if (options.lanes != null) {
+            lanes = (options.lanes.constructor.name == "Array")
+                    ? options.lanes
+                    : [options.lanes]
+        }
         
         let collectedData = {};
 
         for (let command of commands) {
-            await this.runMiddleware(command, options.data, options.lanes);
+            await this.runMiddleware(command, options.data, lanes);
             collectedData[command.constructor.name] = await command.run();
         }
 
@@ -39,5 +46,5 @@ interface ExecutionBusOptions
 {
     commands: Command|Command[];
     data?:object,
-    lanes?:string[];
+    lanes?:string|string[];
 }
