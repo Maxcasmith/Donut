@@ -1,16 +1,20 @@
 controllers:
-  # ExampleTwoController:
-  #   functions:
-  #     - example
+
+  ExampleController:
+    functions:
+      - hello
+
 
 commands:
-  # GetTestCommand:
-  #   dir: Test
-  #   parameters:
-  #     - "test:string"
-  #     - "value:string"
 
+  ExampleCommand:
+    dir: Example
+    parameters:
+      - "value:string"
+
+      
 entities:
-  # Example:
-  #   values:
-  #     - "value:string"
+
+  Example:
+    values:
+      - "value:string"
