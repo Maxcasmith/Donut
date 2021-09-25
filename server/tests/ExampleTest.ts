@@ -12,7 +12,7 @@ export class ExampleTest extends Test
     async test_exampleController_returns_correct_data()
     {
         const ec = new ExampleController();
-        const data = await ec.example(this.req);
+        const data = await ec.hello(this.req);
         this.assertEquals("HELLO WORLD", data.value);
     }
 }

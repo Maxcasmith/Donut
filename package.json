@@ -7,7 +7,8 @@
     "license": "ISC",
     "scripts": {
         "serve": "nodemon build || node build",
-        "tscw": "tsc --watch"
+        "tscw": "tsc --watch",
+        "build": "tsc -p ."
     },
     "dependencies": {
         "@types/node": "^16.3.2",
