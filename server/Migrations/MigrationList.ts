@@ -1,3 +1,3 @@
-export const migrationList = [
-    
+export const migrations = [
+
 ];
