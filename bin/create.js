@@ -181,7 +181,7 @@ function capitalizeFirstLetter(string)
             t.replaceBookmark("GettersAndSetters", gettersSetters);
             await t.createDirectory();
             t.write();
-            console.log(`${c} Created!`);
+            console.log("\x1b[0m", "\x1b[32m", `${c} Created!`);
         }
         const handler = new Template(`${c}Handler`, `../server/Boundary/CommandHandlers/${command.dir}/${c}Handler.ts`, commandHandlerTemplate);
         if (!await handler.fileExists()) {
