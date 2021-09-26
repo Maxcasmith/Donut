@@ -1,8 +1,9 @@
-import { ExampleCommand } from "../../Boundary/Commands/Example/ExampleCommand";
+import { Request } from "../Request";
 import { bus } from "../Services/ExecutionBus";
+import { ExampleCommand } from "../../Boundary/Commands/Example/ExampleCommand";
 export class ExampleController
 {
-    async hello(req:any): Promise<any>
+    async hello(req:Request): Promise<any>
     {
         const message = "HELLO WORLD";
         

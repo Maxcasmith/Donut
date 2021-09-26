@@ -6,7 +6,8 @@ const map = yaml.load(fs.readFileSync(path.join(__dirname, '../map.yaml')));
 
 const log = false;
 
-const controllerTemplate = `import { bus } from "../Services/ExecutionBus";
+const controllerTemplate = `import { Request } from "../Request";
+import { bus } from "../Services/ExecutionBus";
 {{Imports}}
 
 export class {{Title}} 
@@ -200,7 +201,7 @@ function capitalizeFirstLetter(string)
         if (!await t.fileExists()) {
             let functions = '';
             for (let f of controller.functions) {
-                functions += `async ${f}(req)\n    {\n        const commands = "REPLACE ME";\n        const data = await bus.execute({ commands });\n        return data;\n    }\n\n    `;
+                functions += `async ${f}(req:Request)\n    {\n        const commands = "REPLACE ME";\n        const data = await bus.execute({ commands });\n        return data;\n    }\n\n    `;
             }
             t.replaceBookmark("Title", c);
             t.replaceBookmark("Imports", ``);
