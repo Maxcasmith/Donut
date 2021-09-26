@@ -2,7 +2,7 @@ export class Uuid
 {
     private uuid:string;
 
-    constructor(newUuidCharacterString:string|null)
+    constructor(newUuidCharacterString:string|null = null)
     {
         this.uuid = (newUuidCharacterString != null) ? newUuidCharacterString : this.generate();
     }

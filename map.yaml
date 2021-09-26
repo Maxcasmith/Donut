@@ -11,6 +11,13 @@ commands:
     dir: Example
     parameters:
       - "value:string"
+  
+  StorageCommand:
+    dir: Storage
+    parameters:
+      - "file:File"
+      - "disk:string"
+      - "filename:string|null"
 
       
 entities:

@@ -40,8 +40,9 @@ async function runEndpoint(req, res)
     } else res.sendFile(path.join(__dirname, '../../client/index.html'));
 }
 
-module.exports = function (router, jsonParser)
+module.exports = function (router)
 {
-    router.get('*', jsonParser, (req, res) => runEndpoint(req, res));
-    router.post('*', jsonParser, (req, res) => runEndpoint(req, res));
+    router.get('/storage/:filename', (req, res) => { res.sendFile(path.join(__dirname, `../../storage/${req.params.filename}`)) })
+    router.get('*', (req, res) => runEndpoint(req, res));
+    router.post('*', (req, res) => runEndpoint(req, res));
 }
