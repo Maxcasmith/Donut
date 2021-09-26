@@ -40,9 +40,9 @@ async function runEndpoint(req, res)
     } else res.sendFile(path.join(__dirname, '../../client/index.html'));
 }
 
-module.exports = function (router)
+module.exports = function (router:any)
 {
     router.get('/storage/:filename', (req, res) => { res.sendFile(path.join(__dirname, `../../storage/${req.params.filename}`)) })
-    router.get('*', (req, res) => runEndpoint(req, res));
-    router.post('*', (req, res) => runEndpoint(req, res));
+    router.get('*', (req:any, res:any) => runEndpoint(req, res));
+    router.post('*', (req:any, res:any) => runEndpoint(req, res));
 }

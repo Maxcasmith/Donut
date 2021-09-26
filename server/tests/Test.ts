@@ -1,8 +1,10 @@
+import { Request } from "../Application/Request";
+
 export class Test
 {
-    req:object;
+    req:Request;
 
-    setReq(request:object)
+    setReq(request:Request)
     {
         this.req = request;
     }
