@@ -201,7 +201,7 @@ function capitalizeFirstLetter(string)
         if (!await t.fileExists()) {
             let functions = '';
             for (let f of controller.functions) {
-                functions += `async ${f}(req:Request)\n    {\n        const commands = "REPLACE ME";\n        const data = await bus.execute({ commands });\n        return data;\n    }\n\n    `;
+                functions += `async ${f}(req:Request)\n    {\n        const commands = []; // <-- REPLACE ME WITH ONE COMMAND OR AN ARRAY OF COMMANDS\n        const data = await bus.execute({ commands });\n        return data;\n    }\n\n    `;
             }
             t.replaceBookmark("Title", c);
             t.replaceBookmark("Imports", ``);
