@@ -34,7 +34,14 @@ async function runEndpoint(req, res)
         try {
             res.send(await container[func](req));
         } catch(err) {
-            res.send({SUCCESS: false, MESSAGE: err.message});
+            const response = {SUCCESS: false, MESSAGE: err.message};
+            if (process.env.APP_PROD != 'true') {
+                response['DEBUG'] = {
+                    NAME: err.name,
+                    STACK: err.stack
+                }
+            }
+            res.send(response);
         }
         
     } else res.sendFile(path.join(__dirname, '../../client/index.html'));
