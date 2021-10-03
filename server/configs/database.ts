@@ -7,15 +7,20 @@
  * - d-ddts-jsonstore-lib
  * 
  * export const database = {
- *     component,  The constructable class reference for your query
+ *     migrationComponent,  The constructable class reference for your migration
+ *     queryComponent,  The constructable class reference for your query
  *     connection  The connection or config object your query class needs
  * }
  */
 
-const component = null;
-const connection = null;
+const { migrationComponent, queryComponent, connection } = {
+    migrationComponent: null,
+    queryComponent: null,
+    connection: null
+}
 
 export const database = {
-    component,
+    migrationComponent,
+    queryComponent,
     connection
 }

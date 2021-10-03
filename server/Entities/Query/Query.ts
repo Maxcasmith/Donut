@@ -49,6 +49,11 @@ export class Query implements QueryComponent
 
     async delete(id:number): Promise<any>
     {
-        return this.query.delete(id);
+        return await this.query.delete(id);
+    }
+
+    async exists(): Promise<any>
+    {
+        return await this.query.exists();
     }
 }

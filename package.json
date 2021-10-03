@@ -8,7 +8,10 @@
     "scripts": {
         "serve": "nodemon build || node build",
         "tscw": "tsc --watch",
-        "build": "tsc -p ."
+        "build": "tsc -p .",
+        "migrate": "node bin/migrate.js up",
+        "migrate-fresh": "node bin/migrate.js down",
+        "migrate-rollback": "node bin/migrate.js rollback"
     },
     "dependencies": {
         "cors": "^2.8.5",
