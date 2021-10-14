@@ -1,12 +1,13 @@
 {
-    "name": "doughnuts-and-ddts-framework",
+    "name": "donut-framework",
     "version": "1.0.0",
     "description": "The base framework used for all our future apps",
     "main": "server/index.js",
-    "author": "Darren and Max Smith",
+    "author": "Max Smith",
     "license": "ISC",
     "scripts": {
-        "serve": "nodemon build || node build",
+        "serve": "node build",
+	"serve-watch": "nodemon build",
         "tscw": "tsc --watch",
         "build": "tsc -p .",
         "migrate": "node bin/migrate.js up",
