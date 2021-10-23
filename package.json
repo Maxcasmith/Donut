@@ -12,7 +12,8 @@
         "build": "tsc -p .",
         "migrate": "node bin/migrate.js up",
         "migrate-fresh": "node bin/migrate.js down",
-        "migrate-rollback": "node bin/migrate.js rollback"
+        "migrate-rollback": "node bin/migrate.js rollback",
+	"create": "node bin/create.js"
     },
     "dependencies": {
         "cors": "^2.8.5",
