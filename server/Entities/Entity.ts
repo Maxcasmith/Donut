@@ -31,8 +31,8 @@ export class Entity
     static async find(id): Promise<any>
     {
         const data = await (new Query()).table(this.name.toLowerCase()).find(id);
-        if (data.length == 0) throw Error(`No ${this.name} related to id ${id}`);
-        return new this(data[0]);
+        if (!data) throw Error(`No ${this.name} related to id ${id}`);
+        return new this(data);
     }
 
     static async all(): Promise<any>
