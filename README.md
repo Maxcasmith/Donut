@@ -1,5 +1,6 @@
-Doughnuts-and-DDTs-Framework
-=============================
+Project Donut 🍩
+================
 
-```tsc --watch``` and ```nodemon build``` for developing api
+```npm run dev``` will run typescript compiler and server to allow development
+
 
