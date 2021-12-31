@@ -162,14 +162,16 @@ function capitalizeFirstLetter(string)
             let constructorParams = '';
             let constructorValues = '';
             let gettersSetters = '';
-            for (let p of command.parameters) {
-                const variable = p.split(':')[0];
-                const type = p.split(':')[1];
-                params += `private ${variable}: ${type};\n    `;
-                constructorParams += `${p}, `;
-                constructorValues += `this.${variable} = ${variable};\n        `;
-                gettersSetters += `get${capitalizeFirstLetter(toCamel(variable))}(): ${type} \n    {\n        return this.${variable};\n    }\n\n    `;
-                gettersSetters += `set${capitalizeFirstLetter(toCamel(variable))}(${p}): this \n    {\n        this.${variable} = ${variable};\n        return this;\n    }\n\n    `;
+            if (command.parameters) {
+                for (let p of command.parameters) {
+                    const variable = p.split(':')[0];
+                    const type = p.split(':')[1];
+                    params += `private ${variable}: ${type};\n    `;
+                    constructorParams += `${p}, `;
+                    constructorValues += `this.${variable} = ${variable};\n        `;
+                    gettersSetters += `get${capitalizeFirstLetter(toCamel(variable))}(): ${type} \n    {\n        return this.${variable};\n    }\n\n    `;
+                    gettersSetters += `set${capitalizeFirstLetter(toCamel(variable))}(${p}): this \n    {\n        this.${variable} = ${variable};\n        return this;\n    }\n\n    `;
+                }
             }
             constructorParams = constructorParams.slice(0, -2);
             t.replaceBookmark("Title", c);
