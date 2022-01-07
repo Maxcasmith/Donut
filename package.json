@@ -14,6 +14,7 @@
         "migrate-fresh": "node bin/migrate.js down",
         "migrate-rollback": "node bin/migrate.js rollback",
         "create": "node bin/create.js",
+        "create-crud": "node bin/make-crud.js",
         "dev": "tsc --watch & nodemon build"
     },
     "dependencies": {
