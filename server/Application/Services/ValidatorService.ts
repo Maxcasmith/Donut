@@ -1,26 +1,15 @@
-export class ValidatorService 
+export class ValidatorService
 {
-    static rules:object;
+    static validator:any;
 
-    constructor(rules:object)
+    constructor(validator:any) 
     {
-        ValidatorService.rules = rules;
-        Object.freeze(ValidatorService.rules);
+        ValidatorService.validator = validator;
+        Object.freeze(this);
     }
+}
 
-    static async validate(field:any, validationString:string): Promise<boolean>
-    {
-        const validationLoader = validationString.split("|");
-        for (let validationRule of validationLoader) {
-            let response = true;
-            if (validationRule.includes(":"))  {
-                const value = validationRule.split(":")[1];
-                validationRule = validationRule.split(":")[0];
-                response = ValidatorService.rules[validationRule].getValidationFunc()(field, value);
-            }
-            else response = ValidatorService.rules[validationRule].getValidationFunc()(field);
-            if (response != true) throw Error(`For value ${field} : ` + ValidatorService.rules[validationRule].getMessage());
-        }
-        return true;
-    }
+export async function validate(data:any, pattern:string, options:object|null = {})
+{
+    return await ValidatorService.validator.validate(data, pattern, options);
 }
