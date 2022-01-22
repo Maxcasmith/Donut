@@ -7,4 +7,6 @@ export interface QueryComponent
     find:Function;
     delete:Function;
     exists:Function;
+    limit:Function;
+    offset:Function;
 }

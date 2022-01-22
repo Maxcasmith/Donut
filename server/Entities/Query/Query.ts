@@ -56,4 +56,14 @@ export class Query implements QueryComponent
     {
         return await this.query.exists();
     }
+
+    limit(limit:number): QueryComponent
+    {
+        return this.query.limit(limit);
+    }
+
+    offset(offset:number): QueryComponent
+    {
+        return this.query.offset(offset);
+    }
 }
