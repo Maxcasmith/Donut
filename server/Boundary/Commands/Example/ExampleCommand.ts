@@ -1,13 +1,16 @@
 import { Command } from "../Command";
 
+
 export class ExampleCommand extends Command
 {
-    private value:string;
+    private value: string;
     
+
     constructor(value:string)
     {
-        super('Example');
+        super("Example");
         this.value = value;
+        
     }
 
     getValue(): string 
@@ -21,4 +24,5 @@ export class ExampleCommand extends Command
         return this;
     }
 
+    
 }

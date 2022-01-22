@@ -63,11 +63,13 @@ class Writable
 
     inCamel(name)
     {
-        return name.replace(/([-_][a-z])/ig, (s) => {
+        const camel = name.replace(/([-_][a-z])/ig, (s) => {
             return s.toUpperCase()
                 .replace('-', '')
                 .replace('_', '');
         });
+
+        return (camel.charAt(0).toLowerCase()) + camel.slice(1);
     }
 
     capitalizeFirstLetter(string)

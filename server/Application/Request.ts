@@ -4,4 +4,5 @@ export interface Request
     body?:any|null;
     files?:any|null;
     headers?:any|null;
+    query?:any|null;
 }
